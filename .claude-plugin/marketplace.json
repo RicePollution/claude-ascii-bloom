@@ -1,0 +1,13 @@
+{
+  "name": "claude-ascii-bloom",
+  "description": "ascii-bloom: shaded ASCII roses blooming across the Claude desktop app background.",
+  "owner": {
+    "name": "RicePollution"
+  },
+  "plugins": [
+    {
+      "name": "ascii-bloom",
+      "source": "./"
+    }
+  ]
+}

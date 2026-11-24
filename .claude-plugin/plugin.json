@@ -1,0 +1,10 @@
+{
+  "name": "ascii-bloom",
+  "version": "0.1.0",
+  "description": "Pitch-dark theme where shaded ASCII roses bloom and scatter a few at a time across the background.",
+  "author": {
+    "name": "RicePollution"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/RicePollution/claude-ascii-bloom"
+}
