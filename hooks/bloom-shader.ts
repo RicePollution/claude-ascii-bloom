@@ -1,5 +1,5 @@
 import {
-  abs, atan, buffer, clamp, cos, dot, floor, fract, int, length, max, min, mix, normalize, picture,
+  abs, atan, buffer, clamp, composer, cos, dot, floor, fract, int, length, max, min, mix, normalize, picture,
   pow, range, shader, signed, sin, size, smoothstep, table, time, vec2, vec3, vec4,
 } from 'claude-code/shader'
 import type { vec2 as V2, vec4 as V4 } from 'claude-code/shader'
@@ -48,11 +48,11 @@ const TIP = table([
 const ZONES = table([
   [0.13, 0.8],
   [0.87, 0.5],
-  [0.15, 0.2],
+  [0.15, 0.3],
   [0.5, 0.86],
   [0.86, 0.8],
   [0.12, 0.5],
-  [0.85, 0.2],
+  [0.85, 0.3],
 ])
 // The palette: ink black ground, then prussian, dusk, lavender grey, alabaster.
 const INK = vec3(0.051, 0.106, 0.165)
@@ -146,8 +146,10 @@ const field = buffer({ size: [420, 220], filter: 'nearest' }, p => {
       const zone = vec2(ZONES.at(s))
       const fx = zone.x + (hash1(seed + 2) - 0.5) * 0.08
       const fy = zone.y + (hash1(seed + 4) - 0.5) * 0.08
-      const center = vec2(fx * size.x, fy * size.y)
       const radius = min(105 + 55 * hash1(seed + 3), size.y * 0.17)
+      // Keep the whole rose, scatter included, above the prompt box and bar.
+      const floorY = composer.w * size.y + radius * 1.25 + 24
+      const center = vec2(fx * size.x, max(fy * size.y, floorY))
       const q = vec2((cellPt - center) / radius)
       // Coming apart: cells drift outward and up, then thin out.
       const jit = vec2(hash2(vec2(p.cell + seed)) - 0.5, hash2(vec2(p.cell + seed + 5.3)) - 0.5)
